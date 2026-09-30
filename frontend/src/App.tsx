@@ -77,25 +77,25 @@ export const App: React.FC = () => {
               </button>
             </div>
           ) : data ? (
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Context Banner */}
-              <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400">
-                    <ShieldCheck className="w-5 h-5" />
+              <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-900/80 border border-slate-800 p-3.5 sm:p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="p-2 sm:p-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 flex-shrink-0">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <h2 className="text-sm font-bold text-white">
+                  <div className="min-w-0">
+                    <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight leading-snug">
                       Verified Restaurant Sales Analytics Mini System
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-[11px] sm:text-xs text-slate-400 leading-snug truncate sm:whitespace-normal">
                       380 Seeded Orders • 968 Line Items • Zero Orphan Items • Verified Financial Formulas
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-950/60 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
-                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-400 bg-slate-950/60 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto flex-shrink-0">
+                  <Calendar className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
                   <span>Period: <strong className="text-white">June 1 – Aug 31, 2026</strong></span>
                 </div>
               </div>

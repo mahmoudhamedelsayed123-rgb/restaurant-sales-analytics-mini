@@ -21,12 +21,12 @@ export const MonthlyPerformanceTable: React.FC<MonthlyPerformanceProps> = ({ mon
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 sm:mb-6">
         <div>
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-lg font-bold text-white tracking-tight">
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
               Monthly Sales Performance
             </h2>
           </div>
@@ -40,7 +40,59 @@ export const MonthlyPerformanceTable: React.FC<MonthlyPerformanceProps> = ({ mon
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      {/* Mobile Stacked View (< 640px) */}
+      <div className="sm:hidden space-y-3">
+        {monthlyData.map((row) => (
+          <div
+            key={row.yr_month}
+            className="p-3.5 bg-slate-950/60 border border-slate-800/80 rounded-xl space-y-3"
+          >
+            <div className="flex items-center justify-between gap-2 border-b border-slate-800/60 pb-2.5">
+              <div className="flex items-center gap-2 font-bold text-white text-sm">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                {getMonthName(row.yr_month)}
+              </div>
+              {row.mom_growth_pct !== null ? (
+                <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
+                  <ArrowUpRight className="w-3 h-3" />
+                  +{row.mom_growth_pct.toFixed(2)}%
+                </span>
+              ) : (
+                <span className="text-xs text-slate-500 font-medium italic">Baseline</span>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between text-xs bg-slate-900/60 p-2 rounded-lg border border-slate-800/50">
+              <span className="text-slate-400">Orders & AOV:</span>
+              <span className="font-semibold text-slate-200">
+                {row.counted_orders} orders • AOV {formatSar(row.average_order_value)}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800/60">
+                <span className="text-[10px] uppercase font-semibold text-slate-400 block">Gross Sales</span>
+                <span className="font-medium text-slate-200 mt-0.5 block leading-tight">{formatSar(row.gross_sales)}</span>
+              </div>
+              <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800/60">
+                <span className="text-[10px] uppercase font-semibold text-amber-400 block">Discounts</span>
+                <span className="font-medium text-amber-400 mt-0.5 block leading-tight">{formatSar(row.total_discounts)}</span>
+              </div>
+              <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800/60">
+                <span className="text-[10px] uppercase font-semibold text-rose-400 block">Returns</span>
+                <span className="font-medium text-rose-400 mt-0.5 block leading-tight">{formatSar(row.returns)}</span>
+              </div>
+              <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                <span className="text-[10px] uppercase font-semibold text-emerald-400 block">Net Sales</span>
+                <span className="font-bold text-emerald-400 mt-0.5 block leading-tight">{formatSar(row.net_sales)}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop / Tablet Table View (>= 640px) */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-left text-sm text-slate-300 border-collapse">
           <thead>
             <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-950/40">

@@ -3,23 +3,41 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
   body {
     @apply bg-slate-950 text-slate-100 selection:bg-emerald-500 selection:text-white;
   }
 }
 
-/* Custom Scrollbars */
+/* Custom Visible & Contrast-Enhanced Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 #0b0f19;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #0b0f19;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
   background: #475569;
+  border-radius: 9999px;
+  border: 2px solid #0b0f19;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #059669;
 }

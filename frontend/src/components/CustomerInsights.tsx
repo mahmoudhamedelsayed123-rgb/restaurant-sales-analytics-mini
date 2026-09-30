@@ -21,7 +21,7 @@ export const CustomerInsights: React.FC<CustomerInsightsProps> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Customer Behavior Summary Card */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg flex flex-col justify-between">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Users className="w-5 h-5 text-indigo-400" />
@@ -90,7 +90,7 @@ export const CustomerInsights: React.FC<CustomerInsightsProps> = ({
       </div>
 
       {/* Top 5 Registered Customers Table */}
-      <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
+      <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-lg">
         <div className="flex items-center justify-between mb-6">
           <div>
             <div className="flex items-center gap-2">
@@ -105,7 +105,58 @@ export const CustomerInsights: React.FC<CustomerInsightsProps> = ({
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Mobile Stacked View (< 640px) */}
+        <div className="sm:hidden space-y-3 min-w-0">
+          {topCustomers.map((cust, idx) => (
+            <div
+              key={cust.customer_name}
+              className="p-3 bg-slate-950/60 border border-slate-800/80 rounded-xl space-y-2.5 min-w-0 overflow-hidden"
+            >
+              {/* Header: Rank, Customer Name, City, Order Count */}
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/60 pb-2">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-indigo-400 flex items-center justify-center flex-shrink-0">
+                    #{idx + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-white text-xs sm:text-sm leading-tight break-words">{cust.customer_name}</p>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 mt-0.5">
+                      <MapPin className="w-3 h-3 text-emerald-400 flex-shrink-0" />
+                      {cust.city}
+                    </span>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-[11px] font-medium text-slate-300 flex-shrink-0 whitespace-nowrap">
+                  {cust.counted_orders} orders
+                </span>
+              </div>
+
+              {/* Metrics Section */}
+              <div className="space-y-2">
+                {/* Highlighted Primary Net Sales Bar */}
+                <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between gap-2 text-xs">
+                  <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider flex-shrink-0">Net Sales</span>
+                  <span className="font-bold text-emerald-400 text-sm truncate">{formatSar(cust.net_sales)}</span>
+                </div>
+
+                {/* Secondary Metrics: Gross & AOV (2 columns for max width safety) */}
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800/60 flex flex-col justify-center min-w-0">
+                    <span className="text-[10px] uppercase font-semibold text-slate-400 block truncate">Gross Sales</span>
+                    <span className="font-medium text-slate-200 mt-0.5 text-xs truncate">{formatSar(cust.gross_sales)}</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800/60 flex flex-col justify-center min-w-0">
+                    <span className="text-[10px] uppercase font-semibold text-slate-400 block truncate">AOV</span>
+                    <span className="font-medium text-slate-300 mt-0.5 text-xs truncate">{formatSar(cust.average_order_value)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / Tablet Table View (>= 640px) */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-300 border-collapse">
             <thead>
               <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-400 bg-slate-950/40">

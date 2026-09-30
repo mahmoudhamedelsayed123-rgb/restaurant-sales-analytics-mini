@@ -198,6 +198,12 @@ Production output will be generated in `frontend/dist/`.
 
 ---
 
+## 📌 Known Issues & Notes
+
+- **Vertical Scrollbar Mouse Dragging:** Vertical scrolling is fully supported across desktop, tablet, and mobile via touch gestures, mouse-wheel, touchpad, and keyboard navigation. Dragging the custom scrollbar thumb via direct mouse click-and-drag is documented as a known minor desktop browser interaction issue for this release.
+
+---
+
 ## 🌐 Production Deployment (Vercel)
 
 To deploy to Vercel:

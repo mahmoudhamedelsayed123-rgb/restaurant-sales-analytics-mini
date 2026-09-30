@@ -73,29 +73,29 @@ export const KpiCard: React.FC<KpiCardProps> = ({ kpis }) => {
         return (
           <div
             key={idx}
-            className={`relative p-5 rounded-2xl border bg-slate-900/90 backdrop-blur-sm shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl ${
+            className={`relative p-4 sm:p-5 rounded-2xl border bg-slate-900/90 backdrop-blur-sm shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl ${
               card.highlight
                 ? 'border-emerald-500/40 ring-1 ring-emerald-500/20 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/30'
                 : 'border-slate-800 hover:border-slate-700'
             }`}
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-400 tracking-wide uppercase truncate block">
                   {card.title}
                 </span>
-                <h3 className="text-2xl font-bold text-white mt-1 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mt-1 tracking-tight truncate">
                   {card.value}
                 </h3>
               </div>
-              <div className={`p-3 rounded-xl border bg-gradient-to-br ${card.color}`}>
-                <Icon className="w-6 h-6" />
+              <div className={`p-2.5 sm:p-3 rounded-xl border bg-gradient-to-br flex-shrink-0 ${card.color}`}>
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-              <span className="truncate pr-2">{card.subtitle}</span>
-              <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 font-medium text-slate-300 flex-shrink-0">
+            <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs text-slate-400">
+              <span className="truncate min-w-0">{card.subtitle}</span>
+              <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 font-medium text-slate-300 flex-shrink-0 whitespace-nowrap">
                 {card.badge}
               </span>
             </div>

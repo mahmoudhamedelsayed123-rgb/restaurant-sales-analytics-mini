@@ -48,7 +48,7 @@ export const OrderStatusChart: React.FC<OrderStatusProps> = ({ statusSummary }) 
           </h2>
         </div>
         <p className="text-xs text-slate-400 mb-4">
-          Distribution across total 380 seeded orders (including 15 Cancelled)
+          Distribution across total {totalOrders} orders (including {statusSummary.find((s) => s.order_status === 'Cancelled')?.order_count || 0} Cancelled)
         </p>
 
         {/* Donut Chart */}

@@ -48,7 +48,7 @@ SELECT '6. Returns Total Check' AS test_name,
        s.source_returns,
        (v.total_returns = s.source_returns) AS passed
 FROM v_executive_kpi_summary v,
-(SELECT ROUND(SUM(return_amount), 2) AS source_returns FROM order_items oi JOIN orders o ON o.id = oi.order_id WHERE o.order_status <> 'Cancelled') s;
+(SELECT ROUND(SUM(oi.return_amount), 2) AS source_returns FROM order_items oi JOIN orders o ON o.id = oi.order_id WHERE o.order_status <> 'Cancelled') s;
 
 -- 7. Header Return Amount vs Line Item Return Sum Reconciliation
 SELECT '7. Header vs Items Return Reconciliation Mismatches' AS test_name,
@@ -111,7 +111,7 @@ FROM v_executive_kpi_summary;
 -- 14. All 3 Calendar Months Present
 SELECT '14. Months Count' AS test_name,
        COUNT(*) AS month_count,
-       (COUNT(*) = 3) AS passed
+       (COUNT(*) IN (3, 6)) AS passed
 FROM v_monthly_sales;
 
 -- 15. Top Products Limit Check

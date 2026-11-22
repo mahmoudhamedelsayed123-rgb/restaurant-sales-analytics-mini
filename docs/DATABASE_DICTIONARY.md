@@ -138,3 +138,20 @@ Contains 20 automated validation queries covering:
 - 1-to-1 reconciliation of product Net Sales to overall Net Sales.
 - 1-to-1 reconciliation of monthly and channel Net Sales to overall Net Sales.
 - Non-duplication verification for discounts and returns.
+
+
+---
+
+## 6. Dataset Extension Architecture (Phase 5: Sept 1 – Nov 21, 2026)
+
+### 6.1 Extension Overview
+- **Batch Identifier:** `BATCH-2026-Q4-EXT`
+- **Target Period:** September 1, 2026 through November 21, 2026 (82 calendar days)
+- **Partial Month Rule:** November 2026 is strictly classified as a partial month covering days 1 through 21.
+- **Volume:** 456 new orders (439 counted, 17 cancelled), 1,195 new line items.
+- **Combined Volume:** 836 total orders (804 counted), 2,163 line items.
+
+### 6.2 Safety & Idempotency
+- **Manifest:** [`database/extension_manifest_2026_q4.json`](../database/extension_manifest_2026_q4.json) explicitly enumerates all 456 deterministic order IDs and numbers.
+- **Idempotent Inserts:** [`database/seed_extension_2026_q4.sql`](../database/seed_extension_2026_q4.sql) uses `ON CONFLICT (order_number) DO NOTHING` and `ON CONFLICT (id) DO NOTHING`.
+- **Targeted Batch Rollback:** [`database/rollback_extension_2026_q4.sql`](../database/rollback_extension_2026_q4.sql) matches against manifest identifiers, guaranteeing that all pre-existing records remain untouched regardless of timestamp.

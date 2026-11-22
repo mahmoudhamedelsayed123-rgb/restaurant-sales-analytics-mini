@@ -1,5 +1,5 @@
 import React from 'react';
-import { Utensils, RefreshCw, Database, CheckCircle2, Globe, Clock, Menu } from 'lucide-react';
+import { Utensils, RefreshCw, Database, Globe, Clock, Menu, AlertTriangle } from 'lucide-react';
 
 interface HeaderProps {
   isLiveSupabase: boolean;
@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
                 Restaurant Sales Analytics
               </h1>
               <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 sm:px-2 py-0.5 rounded-full flex-shrink-0 whitespace-nowrap">
-                Mini System
+                V1.1
               </span>
             </div>
             <p className="text-[11px] sm:text-xs text-slate-400 font-medium truncate leading-tight mt-0.5">
@@ -46,29 +46,40 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 flex-shrink-0">
-        {/* System Badges */}
+        {/* System Context Badges */}
         <div className="hidden md:flex items-center gap-2 text-xs bg-slate-800/80 border border-slate-700/60 rounded-lg px-3 py-1.5 text-slate-300">
           <Globe className="w-3.5 h-3.5 text-emerald-400" />
           <span>Currency: <strong className="text-white">SAR</strong></span>
           <span className="text-slate-600">|</span>
           <Clock className="w-3.5 h-3.5 text-amber-400" />
-          <span>Timezone: <strong className="text-white">+03:00</strong></span>
+          <span>Timezone: <strong className="text-white">Asia/Riyadh (+03:00)</strong></span>
         </div>
 
-        {/* Database Connection Status Indicator */}
+        {/* Database Connection Status Indicator (Clear differentiation between Live and Offline Fallback) */}
         <div
           className={`flex items-center gap-1.5 text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-lg border transition-colors ${
             isLiveSupabase
-              ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
-              : 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30'
+              ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 shadow-sm'
+              : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
           }`}
-          title={isLiveSupabase ? 'Connected to live Supabase database views' : 'Displaying verified Phase 4 analytics dataset'}
+          title={
+            isLiveSupabase
+              ? 'Connected to live Supabase PostgreSQL analytics views (Project: avhykstueusdqkbwclvh)'
+              : 'Offline Mode: Displaying verified static V1.1 dataset fallback (June 1 - Nov 21, 2026)'
+          }
         >
           <Database className="w-3.5 h-3.5 flex-shrink-0" />
           <span className="hidden sm:inline whitespace-nowrap">
-            {isLiveSupabase ? 'Supabase Live' : 'Verified Dataset'}
+            {isLiveSupabase ? 'Supabase Live' : 'Offline Fallback'}
           </span>
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+          {isLiveSupabase ? (
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+          ) : (
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+          )}
         </div>
 
         {/* Refresh Button */}
@@ -76,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={onRefresh}
           disabled={isRefreshing}
           className="flex items-center gap-1.5 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg px-2.5 sm:px-3 py-1.5 transition-colors disabled:opacity-50 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
-          title="Refresh analytics data"
+          title="Refresh analytics data from live Supabase views"
           aria-label="Refresh analytics data"
         >
           <RefreshCw className={`w-3.5 h-3.5 flex-shrink-0 ${isRefreshing ? 'animate-spin text-emerald-400' : ''}`} />

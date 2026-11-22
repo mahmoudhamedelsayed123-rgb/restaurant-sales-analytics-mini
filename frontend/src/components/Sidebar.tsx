@@ -8,6 +8,10 @@ interface SidebarProps {
   setActiveTab: (tab: TabType) => void;
   isOpenMobile: boolean;
   onCloseMobile: () => void;
+  datasetPeriod?: string;
+  periodSubtitle?: string;
+  netSales?: number;
+  countedOrders?: number;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -15,7 +19,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setActiveTab,
   isOpenMobile,
   onCloseMobile,
+  datasetPeriod = 'June 1 – Nov 21, 2026',
+  periodSubtitle = '6 Months (Nov Partial: 21d)',
+  netSales = 128246.73,
+  countedOrders = 804,
 }) => {
+  const formatSar = (val: number) => {
+    return new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(val) + ' SAR';
+  };
+
   const navItems = [
     {
       id: 'overview' as TabType,
@@ -45,11 +60,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button
           onClick={onCloseMobile}
           className="p-1.5 text-slate-400 hover:text-white rounded-lg bg-slate-800"
+          aria-label="Close navigation"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
+      {/* Dataset Period Information */}
       <div className="mb-6 px-2">
         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
           Dataset Period
@@ -57,12 +74,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="mt-2 p-3 bg-slate-800/60 border border-slate-700/50 rounded-xl flex items-center gap-3">
           <Calendar className="w-5 h-5 text-emerald-400 flex-shrink-0" />
           <div>
-            <p className="text-xs font-medium text-slate-200">Jun 1 - Aug 31, 2026</p>
-            <p className="text-[11px] text-slate-400">3 Full Calendar Months</p>
+            <p className="text-xs font-semibold text-slate-200">{datasetPeriod}</p>
+            <p className="text-[11px] text-amber-300 font-medium">{periodSubtitle}</p>
           </div>
         </div>
       </div>
 
+      {/* Navigation Sections */}
       <nav className="space-y-1.5 flex-1">
         <p className="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
           Dashboard Sections
@@ -79,7 +97,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full text-left flex items-start gap-3 p-3 rounded-xl transition-all duration-200 ${
                 isActive
-                  ? 'bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 text-emerald-400 border border-emerald-500/30 font-medium'
+                  ? 'bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 text-emerald-400 border border-emerald-500/30 font-medium shadow-sm'
                   : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 border border-transparent'
               }`}
             >
@@ -93,14 +111,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </nav>
 
-      <div className="mt-auto pt-6 border-t border-slate-800/80 px-2">
+      {/* Verified Analytics Summary Footer */}
+      <div className="mt-auto pt-6 border-t border-slate-800/80 px-2 space-y-2">
         <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-3">
-          <DollarSign className="w-5 h-5 text-amber-400 flex-shrink-0" />
+          <DollarSign className="w-5 h-5 text-emerald-400 flex-shrink-0" />
           <div className="text-xs">
-            <p className="font-semibold text-slate-200">Verified Analytics</p>
-            <p className="text-slate-400">Net Sales: 57,352.48 SAR</p>
+            <p className="font-semibold text-slate-200">Verified Net Sales</p>
+            <p className="text-emerald-400 font-bold">{formatSar(netSales)}</p>
           </div>
         </div>
+        <p className="text-[10px] text-slate-500 text-center">
+          {countedOrders} Counted Orders • 0 Orphan Items
+        </p>
       </div>
     </div>
   );

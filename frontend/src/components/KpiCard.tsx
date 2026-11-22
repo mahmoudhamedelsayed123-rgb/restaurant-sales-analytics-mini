@@ -14,30 +14,42 @@ export const KpiCard: React.FC<KpiCardProps> = ({ kpis }) => {
     }).format(val) + ' SAR';
   };
 
+  const discountRatePct = kpis.total_gross_sales > 0
+    ? ((kpis.total_discounts / kpis.total_gross_sales) * 100).toFixed(2)
+    : '0.00';
+
+  const returnRatePct = kpis.total_gross_sales > 0
+    ? ((kpis.total_returns / kpis.total_gross_sales) * 100).toFixed(2)
+    : '0.00';
+
+  const realizationRatePct = kpis.total_gross_sales > 0
+    ? ((kpis.total_net_sales / kpis.total_gross_sales) * 100).toFixed(1)
+    : '0.0';
+
   const cards = [
     {
       title: 'Gross Sales',
       value: formatSar(kpis.total_gross_sales),
-      subtitle: 'Sum of quantity × unit price',
+      subtitle: 'Sum of (quantity × unit_price_at_sale)',
       icon: DollarSign,
       color: 'from-blue-500/20 to-blue-600/5 text-blue-400 border-blue-500/30',
-      badge: '60,325.00 SAR',
+      badge: `${realizationRatePct}% Realized`,
     },
     {
       title: 'Total Discounts',
       value: formatSar(kpis.total_discounts),
-      subtitle: `Item: ${kpis.total_item_discounts.toFixed(2)} | Order: ${kpis.total_order_discounts.toFixed(2)} SAR`,
+      subtitle: `Item: ${formatSar(kpis.total_item_discounts)} | Order: ${formatSar(kpis.total_order_discounts)}`,
       icon: Tag,
       color: 'from-amber-500/20 to-amber-600/5 text-amber-400 border-amber-500/30',
-      badge: '1.06% of Gross',
+      badge: `${discountRatePct}% of Gross`,
     },
     {
       title: 'Total Returns',
       value: formatSar(kpis.total_returns),
-      subtitle: 'Refunds & items returned',
+      subtitle: 'Line-item refunds & full returns',
       icon: RotateCcw,
       color: 'from-rose-500/20 to-rose-600/5 text-rose-400 border-rose-500/30',
-      badge: '3.86% of Gross',
+      badge: `${returnRatePct}% of Gross`,
     },
     {
       title: 'Net Sales',
@@ -45,16 +57,16 @@ export const KpiCard: React.FC<KpiCardProps> = ({ kpis }) => {
       subtitle: 'Gross - Discounts - Returns',
       icon: TrendingUp,
       color: 'from-emerald-500/20 to-emerald-600/5 text-emerald-400 border-emerald-500/30',
-      badge: 'Primary Metric',
+      badge: 'Primary Financial Metric',
       highlight: true,
     },
     {
       title: 'Counted Orders',
-      value: `${kpis.counted_orders} Orders`,
-      subtitle: 'Completed, Returned & Partial',
+      value: `${kpis.counted_orders.toLocaleString()} Orders`,
+      subtitle: 'Completed, Returned & Partial (Excl. Cancelled)',
       icon: ShoppingCart,
       color: 'from-purple-500/20 to-purple-600/5 text-purple-400 border-purple-500/30',
-      badge: 'Excludes Cancelled',
+      badge: 'Valid Sales Count',
     },
     {
       title: 'Average Order Value (AOV)',
@@ -62,7 +74,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({ kpis }) => {
       subtitle: 'Net Sales / Counted Orders',
       icon: Award,
       color: 'from-teal-500/20 to-teal-600/5 text-teal-400 border-teal-500/30',
-      badge: '157.13 SAR',
+      badge: `AOV: ${formatSar(kpis.average_order_value)}`,
     },
   ];
 

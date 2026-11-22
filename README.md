@@ -1,7 +1,7 @@
-# 🍽️ Restaurant Sales Analytics Mini System
+# 🍽️ Restaurant Sales Analytics Mini System (V1.1)
 > **لوحة تحليلات مبيعات المطعم — Executive Dashboard**
 
-A standalone, professional web application and PostgreSQL analytics engine designed for restaurant sales tracking, financial KPI calculations, and data visualization using **Supabase**, **PostgreSQL**, **React 18**, **TypeScript**, **Vite**, and **Tailwind CSS**. 
+A standalone, professional web application and PostgreSQL analytics engine designed for restaurant sales tracking, financial KPI calculations, and data visualization using **Supabase**, **PostgreSQL 17**, **React 18**, **TypeScript**, **Vite**, and **Tailwind CSS**. 
 
 This system prepares structured, verified financial metrics for future **n8n workflows**, **AI Sales Agents**, and **RAG (Retrieval-Augmented Generation)** integration.
 
@@ -10,37 +10,44 @@ This system prepares structured, verified financial metrics for future **n8n wor
 ## 📌 Project Overview
 
 - **Project Name:** Restaurant Sales Analytics Mini System
+- **Release Version:** `v1.1` (Production)
 - **Target Platform:** Web Application (Responsive for Desktop, Tablet, and Mobile)
-- **Primary Stack:** React 18, Vite, TypeScript, Tailwind CSS, Recharts, Lucide Icons, Supabase, PostgreSQL
+- **Primary Stack:** React 18, Vite, TypeScript, Tailwind CSS, Recharts, Lucide Icons, Supabase, PostgreSQL 17
 - **Currency Context:** SAR (Saudi Riyal)
 - **Timezone Context:** Asia/Riyadh (`+03:00`)
-- **Verified Dataset Period:** June 1, 2026 – August 31, 2026 (3 Full Calendar Months)
-- **Verified Dataset Size:** 60 Customers, 25 Products, 380 Orders, 968 Order Line Items (0 Orphan Items)
+- **Verified Dataset Period:** June 1, 2026 – November 21, 2026 (6 Months, November Partial: 21 days)
+- **Verified Dataset Size:** 60 Customers, 25 Products, 836 Total Orders (804 Counted, 32 Cancelled), 2,163 Order Line Items (0 Orphan Items)
 
 ---
 
-## 📊 Executive KPI Summary (Verified Phase 4 & Phase 17A)
+## 📊 Executive KPI Summary (Verified Production State)
 
 | Executive KPI Metric | Verified Value | Calculation Formula / Description |
 | :--- | :---: | :--- |
-| **Gross Sales** | **60,325.00 SAR** | $\sum (\text{quantity} \times \text{unit\_price\_at\_sale})$ |
-| **Item-Level Discounts** | **222.40 SAR** | $\sum (\text{line\_discount})$ |
-| **Order-Level Discounts** | **420.00 SAR** | $\sum (\text{header discount\_amount})$ |
-| **Total Discounts** | **642.40 SAR** | Item Discounts + Order Discounts |
-| **Total Returns** | **2,330.12 SAR** | $\sum (\text{return\_amount})$ |
-| **Net Sales** | **57,352.48 SAR** | Gross Sales - Total Discounts - Total Returns |
-| **Counted Orders** | **365 Orders** | Completed + Returned + Partially Returned (Excludes Cancelled) |
-| **Average Order Value (AOV)** | **157.13 SAR** | Net Sales / Counted Orders |
+| **Gross Sales** | **135,973.75 SAR** | $\sum (\text{quantity} \times \text{unit\_price\_at\_sale})$ |
+| **Item-Level Discounts** | **772.40 SAR** | $\sum (\text{line\_discount})$ |
+| **Order-Level Discounts** | **945.00 SAR** | $\sum (\text{header discount\_amount})$ |
+| **Total Discounts** | **1,717.40 SAR** | Item Discounts + Order Discounts (1.26% of Gross) |
+| **Total Returns** | **6,009.62 SAR** | $\sum (\text{return\_amount})$ (4.42% of Gross) |
+| **Net Sales** | **128,246.73 SAR** | Gross Sales - Total Discounts - Total Returns |
+| **Total Orders** | **836 Orders** | All registered and walk-in sales orders |
+| **Counted Orders** | **804 Orders** | Completed + Returned + Partially Returned (Excludes Cancelled) |
+| **Average Order Value (AOV)** | **159.51 SAR** | Net Sales / Counted Orders |
 
 ---
 
-## 📅 Monthly Sales Performance & Growth
+## 📅 Monthly Sales Performance & Growth (6-Month Horizon)
 
 | Month | Gross Sales | Total Discounts | Total Returns | Net Sales | Counted Orders | AOV | MoM Growth % |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **June 2026** | 16,186.70 SAR | 200.00 SAR | 510.00 SAR | **15,476.70 SAR** | 107 | 144.64 SAR | *Baseline* |
-| **July 2026** | 21,543.30 SAR | 262.40 SAR | 920.00 SAR | **20,360.90 SAR** | 118 | 172.55 SAR | **+31.56%** 🚀 |
-| **August 2026** | 22,595.00 SAR | 180.00 SAR | 900.12 SAR | **21,514.88 SAR** | 140 | 153.68 SAR | **+5.67%** 📈 |
+| **June 2026** | 16,513.00 SAR | 151.80 SAR | 884.50 SAR | **15,476.70 SAR** | 107 | 144.64 SAR | *Baseline* |
+| **July 2026** | 21,375.50 SAR | 148.60 SAR | 866.00 SAR | **20,360.90 SAR** | 118 | 172.55 SAR | **+31.56%** 🚀 |
+| **August 2026** | 22,436.50 SAR | 342.00 SAR | 579.62 SAR | **21,514.88 SAR** | 140 | 153.68 SAR | **+5.67%** 📈 |
+| **September 2026** | 29,778.00 SAR | 475.00 SAR | 1,249.25 SAR | **28,053.75 SAR** | 166 | 169.00 SAR | **+30.39%** 🚀 *(Peak)* |
+| **October 2026** | 27,032.25 SAR | 310.00 SAR | 1,479.50 SAR | **25,242.75 SAR** | 164 | 153.92 SAR | **-10.02%** |
+| **November 2026\*** | 18,838.50 SAR | 290.00 SAR | 950.75 SAR | **17,597.75 SAR** | 109 | 161.45 SAR | **\*Partial (21d)** |
+
+*\*Note on November 2026:* Covers exactly 21 calendar days (June 1 through November 21, 2026). The prorated full-month trajectory aligns with October volume (~25.1k SAR).
 
 ---
 
@@ -110,12 +117,13 @@ flowchart TD
 ```text
 restaurant-sales-analytics-mini/
 ├── database/
-│   ├── schema.sql                 # Safe PostgreSQL DDL table definitions
-│   ├── reset_schema.sql           # Teardown script (development reset)
+│   ├── schema.sql                 # PostgreSQL DDL table definitions
 │   ├── seed.sql                   # Phase 3 deterministic seed dataset (380 orders, 968 items)
-│   ├── validate_seed.sql          # Seed data integrity validation suite
+│   ├── seed_extension_2026_q4.sql # Q4 extension dataset (456 orders, 1,195 items)
+│   ├── extension_manifest_2026_q4.json # Deterministic batch manifest
+│   ├── rollback_extension_2026_q4.sql # Safe manifest-based batch rollback
 │   ├── analytics.sql              # Phase 4 PostgreSQL views & analytics layer DDL
-│   └── validate_analytics.sql     # Analytics validation query suite
+│   └── validate_analytics.sql     # Automated validation suite (21 queries)
 ├── docs/
 │   └── DATABASE_DICTIONARY.md     # Comprehensive data dictionary & calculation logic
 ├── frontend/                      # Web Application Frontend
@@ -127,16 +135,15 @@ restaurant-sales-analytics-mini/
 │   ├── postcss.config.js          # PostCSS processing
 │   ├── vercel.json                # Vercel SPA rewrite configuration
 │   ├── .env.example               # Environment variables template
-│   ├── .env                       # Local environment file (Git ignored)
 │   └── src/
 │       ├── main.tsx               # App entry point
 │       ├── index.css              # Global styles & scrollbar setup
 │       ├── types/analytics.ts     # TypeScript interface definitions
 │       ├── lib/supabase.ts        # Supabase client & fallback detector
-│       ├── services/analyticsService.ts # Live API fetcher & offline snapshot
+│       ├── services/analyticsService.ts # Live API fetcher & verified V1.1 snapshot
 │       └── components/
 │           ├── Header.tsx                 # Header navigation & status badges
-│           ├── Sidebar.tsx                # Responsive sidebar / mobile drawer
+│           ├── Sidebar.tsx                # Responsive sidebar & drawer
 │           ├── KpiCard.tsx                # Executive KPI summary cards
 │           ├── MonthlyPerformanceTable.tsx# Monthly sales breakdown & MoM badges
 │           ├── SalesTrendChart.tsx        # Recharts monthly area & day-of-week bar charts
@@ -172,7 +179,7 @@ Create a `.env` file inside `frontend/`:
 VITE_SUPABASE_URL=https://your-supabase-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-public-key
 ```
-*(Note: If environment keys are left blank, the frontend automatically activates zero-downtime offline fallback mode with the exact verified Phase 4 analytical snapshot).*
+*(Note: If environment keys are left blank, the frontend automatically activates zero-downtime offline fallback mode with the exact verified V1.1 analytical snapshot).*
 
 ### 4. Run Locally
 ```bash
@@ -194,7 +201,7 @@ Production output will be generated in `frontend/dist/`.
 
 - **Read-Only Supabase Connection:** The frontend only uses the public `anon` publishable key.
 - **Service Role Exclusion:** `service_role` keys are **never** exposed in code or configuration.
-- **View-Level Security Grants:** The database grants `SELECT` access strictly to pre-aggregated analytics views (`v_executive_kpi_summary`, etc.). Direct `SELECT` access to raw transactional tables (`orders`, `customers`) remains restricted.
+- **View-Level Security Grants:** The database grants `SELECT` access strictly to pre-aggregated analytics views (`v_executive_kpi_summary`, etc.). Direct `SELECT` access to raw transactional tables remains restricted.
 
 ---
 
@@ -206,11 +213,5 @@ Production output will be generated in `frontend/dist/`.
 
 ## 🌐 Production Deployment (Vercel)
 
-To deploy to Vercel:
-1. Connect your GitHub repository to Vercel.
-2. Set **Root Directory** to `frontend`.
-3. Set **Framework Preset** to `Vite`.
-4. Set **Build Command** to `npm run build` and **Output Directory** to `dist`.
-5. Add Environment Variables:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
+- **Production URL:** [https://restaurant-sales-analytics-mini.vercel.app](https://restaurant-sales-analytics-mini.vercel.app)
+- **Deployment Platform:** Vercel (SPA Preset, Output Directory: `dist`)
